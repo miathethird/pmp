@@ -29,3 +29,74 @@ void pmp::quick_sort(std::vector<int>& to_sort)
 {
     q_sort(to_sort, 0, to_sort.size()-1);
 }
+
+void pmp::merge(std::vector<int>& to_sort, int l, int m, int r)
+{
+    //std::cout << "begin merge: " << l << " " << m << " " << r << std::endl;
+
+    int n1 = m-l+1;
+    int n2 = r-m;
+
+    int temp[n1+n2];
+
+    //copy to_sort to temp arrays
+
+    int i = l;
+    int j = m+1;
+    int k = 0;
+    while((i<=m) && (j<=r))
+    {
+        if(to_sort[i] <= to_sort[j])
+        {
+            temp[k] = to_sort[i];
+            i++;
+        }
+        else
+        {
+            temp[k] = to_sort[j];
+            j++;
+        }
+        k++;
+    }
+
+    if(j>r) //all elements from m to r have been placed in temp arr so copy remaining from l to m
+    {
+        while(i<=m)
+        {
+            temp[k] = to_sort[i];
+            i++;
+            k++;
+        }
+    }
+    else //all elements from l to m have been placed in temp arr so copy remaining from m+1 to r
+    {
+        while(j<=r)
+        {
+            temp[k] = to_sort[j];
+            j++;
+            k++;
+        }
+    }
+
+    for(int i = 0; i<k; i++)
+    {
+        to_sort[i+l] = temp[i];
+    }
+}
+
+void pmp::m_sort(std::vector<int>& to_sort, int l, int r)
+{
+    if (l>=r) return;
+    int m = l+(r-l)/2;
+    m_sort(to_sort, l,m);
+    m_sort(to_sort, m+1,r);
+    merge(to_sort, l , m, r);
+}
+
+void pmp::merge_sort(std::vector<int>& to_sort)
+{
+    int l = 0;
+    int r = to_sort.size()-1;
+    
+    m_sort(to_sort, l, r);
+}

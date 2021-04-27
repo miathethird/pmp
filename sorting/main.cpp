@@ -1,16 +1,39 @@
 //#include <vector>
 #include "sort.h"
 #include <algorithm>
+#include <random>
+#include <exception>
 
 int main()
 {
-    std::vector<int> to_sort = {76,75,74,73,72,71,96,95,94,91,44,55,66,77,88,99,80};
-    std::vector<int> to_sort2 = {76,75,74,73,72,71,96,95,94,91,44,55,66,77,88,99,80};
-    //std::vector<int> to_sort = {11,10,9,8,7,6,5,4,3,2,1};
+    std::vector<int> to_sort;
+    //std::default_random_engine generator; //not true random
+    std::random_device generator;
+    std::uniform_int_distribution<int> distribution(1,30);
+    for(int i = 0; i<100000; i++)
+    {
+        to_sort.push_back(distribution(generator));
+    }
+
+    //std::cout << "to_sort: ";
+    //for(int i : to_sort) std::cout << " " << i << ",";
+    //std::cout << std::endl;
+
     pmp::quick_sort(to_sort);
-    std::sort(to_sort2.begin(), to_sort2.end());
-    for(int i : to_sort) std::cout << i << " ";
-    std::cout << std::endl;
-    for(int i : to_sort2) std::cout << i << " ";
+    //pmp::merge_sort(to_sort);
+
+    for(int i = 0; i<to_sort.size()-1; i++)
+    {
+        //std::cout << to_sort[i] << " ";
+        try{
+            if(to_sort[i] > to_sort[i+1]) throw std::logic_error("sorting failed");
+        }
+        catch (const std::logic_error& e)
+        {
+            std::cout << e.what() << std::endl;
+            throw e;
+        }
+    }
+    
     return 0;
 }
