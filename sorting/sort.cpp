@@ -100,3 +100,32 @@ void pmp::merge_sort(std::vector<int>& to_sort)
     
     m_sort(to_sort, l, r);
 }
+
+void pmp::heapify(std::vector<int>& to_sort, int heapsize, int parent)
+{
+    int largest = parent;
+    int left = 2*parent + 1;
+    int right = 2*parent + 2;
+    if(left<heapsize && to_sort[left] > to_sort[largest]) largest = left;
+    if (right<heapsize && to_sort[right] > to_sort[largest]) largest = right;
+
+    if(largest!=parent)
+    {
+        std::swap(to_sort[largest], to_sort[parent]);
+        heapify(to_sort, heapsize, largest);
+    }
+}
+
+void pmp::heap_sort(std::vector<int>& to_sort)
+{
+    int non_leaf_node_max = to_sort.size()/2-1;
+    int heapsize = to_sort.size();
+    for (int i = non_leaf_node_max; i>=0; i--) heapify(to_sort, heapsize, i);
+
+    
+    while(heapsize)
+    {
+        std::swap(to_sort[0],to_sort[--heapsize]);
+        heapify(to_sort, heapsize, 0);
+    }
+}
