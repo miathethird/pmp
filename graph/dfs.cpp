@@ -28,12 +28,8 @@ class Graph
     {
         for(auto i : visited) 
         {
-            //std::cout << i.first << " " << i.second << std::endl;
             i = false;
-            //std::cout << i->first << " " << i->second << std::endl;
         }
-        //visited[0] = false;
-
     }
 
     void dfs_iterative(int startVx)
@@ -58,12 +54,7 @@ class Graph
 
     void dfs_recursive(int Vx)
     {
-        //std::cout << Vx << " ---" << visited[Vx] << std::endl;
-        if(visited[Vx])
-        {
-            //std::cout << "shunga";
-            return;
-        }
+        if(visited[Vx]) return;
         std::cout << Vx << " ";
         visited[Vx] = true;
 

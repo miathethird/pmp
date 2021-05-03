@@ -86,7 +86,7 @@ std::vector<int> solve(std::string s, std::vector<int> startIdx, std::vector<int
 
 int main()
 {
-    std::string s = "|**|***|**";
+    std::string s = "*|***|*|**********|"; //"|**|***|**";
     std::vector<int> startIdx = {1,1,1};
     std::vector<int> endIdx  = {5,6,9};
     std::vector<int> result = solve(s, startIdx, endIdx);
