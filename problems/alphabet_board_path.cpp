@@ -9,6 +9,12 @@ std::string pathToLetter(char src, char dest)
     int dest_row = ((dest-'a') / 5);
     int dest_col =  (dest-'a') % 5;
 
+    if(src == 'z')
+    {
+        res+='U';
+        src_row--;
+    }
+
     while(src_row != dest_row)
     {
         if(src_row>dest_row)
